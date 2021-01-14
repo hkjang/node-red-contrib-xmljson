@@ -27,26 +27,27 @@ Example
 
 ```json
 {
+  "_declaration": {
+    "_attributes": {
+      "version": "1.0",
+      "encoding": "UTF-8"
+    }
+  },
   "domain": {
-    "xmlns": "http://www.tmaxsoft.com/xml/ns/jeus",
-    "version": "7.0",
-    "id": "1804002829",
-    "admin-server-name": "myServer",
+    "_attributes": {
+      "xmlns": "http://www.tmaxsoft.com/xml/ns/jeus",
+      "version": "7.0"
+    },
+    "id": {
+      "_text": "1804002829"
+    },
+    "admin-server-name": {
+      "_text": "myServer"
+    },
     "servers": {
       "server": {
-        "name": "myServer",
-        "listeners": {
-          "base": "base",
-          "listener": [
-            {
-              "name": "base",
-              "listen-port": "9736"
-            },
-            {
-              "name": "jms-internal",
-              "listen-port": "9741"
-            }
-          ]
+        "name": {
+          "_text": "myServer"
         },
         .
         .
