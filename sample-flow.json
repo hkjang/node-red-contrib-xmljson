@@ -1,0 +1,93 @@
+[
+  {
+    "id": "e4165a52.a851f8",
+    "type": "xml2json",
+    "z": "3ff5c40c.ffa48c",
+    "name": "Parse xml to json",
+    "x": 370,
+    "y": 120,
+    "wires": [
+      [
+        "586d8d62.c48784"
+      ]
+    ]
+  },
+  {
+    "id": "149e32d6.613cad",
+    "type": "inject",
+    "z": "3ff5c40c.ffa48c",
+    "name": "XML String",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "<?xml version=\"1.0\" encoding=\"UTF-8\"?> <domain xmlns=\"http://www.tmaxsoft.com/xml/ns/jeus\" version=\"7.0\">    <id>1804002829</id>    <admin-server-name>myServer</admin-server-name>    <servers>       <server>          <name>myServer</name>          <!-- settings for listeners -->          <listeners>             <base>base</base>             <listener>                <name>base</name>                <listen-port>9736</listen-port>             </listener>             <listener>                <name>jms-internal</name>                <listen-port>9741</listen-port>             </listener>          </listeners>           <naming-server>             <export-cos-naming>false</export-cos-naming>             <pooling>                <shared>                   <reserved-thread-num>30</reserved-thread-num>                </shared>             </pooling>          </naming-server>           <jvm-config>             <jvm-option>-Xmx512m -XX:MaxPermSize=250m</jvm-option>          </jvm-config>           <enable-interop/>           <sequential-start>true</sequential-start>           <!-- settings for Transaction Manager -->          <tm-config>             <active-timeout>300000</active-timeout>             <prepare-timeout>120000</prepare-timeout>             <prepared-timeout>60000</prepared-timeout>             <commit-timeout>120000</commit-timeout>             <recovery-timeout>120000</recovery-timeout>             <uncompleted-timeout>86400000</uncompleted-timeout>             <tx-log-dir>${SERVER_HOME}/.workspace/txlog</tx-log-dir>             <automatic-recovery>false</automatic-recovery>          </tm-config>           <action-on-resource-leak>Warning</action-on-resource-leak>           <use-MEJB>false</use-MEJB>           <!-- invoke proecessMethod(1) method of com.tmax.ProcessClass when this container is booted -->          <lifecycle-invocation>              <class-name>com.tmax.ProcessClass</class-name>              <invocation>                  <invocation-method>                      <method-name>processMethod</method-name>                      <method-params>                          <method-param>int</method-param>                      </method-params>                  </invocation-method>                  <invocation-argument>1</invocation-argument>                  <invocation-type>BOOT</invocation-type>              </invocation>          </lifecycle-invocation>           <!-- all ejb engines of this server use class-ftp to send stubs to ejg clients -->          <class-ftp>true</class-ftp>           <!-- setting for jeus logging for the server -->          <system-logging>             <name>jeus</name>             <level>INFO</level>             <use-parent-handlers>false</use-parent-handlers>             <handler>                <file-handler>                   <name>fileHandler</name>                   <level>FINEST</level>                   <file-name>JeusServer.log</file-name>                   <enable-rotation>true</enable-rotation>                   <rotation-dir>${SERVER_HOME}/logs</rotation-dir>                   <valid-day>1</valid-day>                   <buffer-size>1024</buffer-size>                   <append>false</append>                </file-handler>             </handler>          </system-logging>          <log-stdout-to-raw-format>true</log-stdout-to-raw-format>           <!-- setting for Group Management Service -->          <gms>             <failure-detection-tries>2</failure-detection-tries>             <failure-detection-timeout>7000</failure-detection-timeout>             <failure-detection-tcp-timeout>10000</failure-detection-tcp-timeout>             <failure-verification-timeout>15000</failure-verification-timeout>             <discovery-timeout>5000</discovery-timeout>          </gms>           <!-- setting for System Thread Pool -->          <system-thread-pool>             <min>0</min>             <max>100</max>             <keep-alive-time>300000</keep-alive-time>             <queue-size>4096</queue-size>             <stuck-thread-handling>                <max-stuck-thread-time>0</max-stuck-thread-time>                <action-on-stuck-thread>None</action-on-stuck-thread>             </stuck-thread-handling>          </system-thread-pool>       </server>    </servers>     <!-- settings to communicate with other servers in cluster -->    <group-communication-info>       <heartbeat-address>230.30.1.1</heartbeat-address>       <heartbeat-port>3030</heartbeat-port>       <failure-detection-tcp-port>9000</failure-detection-tcp-port>    </group-communication-info>     <!-- settings for resources such as JDBC Connection Pool -->    <resources>         <data-source>             <database>                 <data-source-id>datasource1</data-source-id>                 <data-source-class-name>                     oracle.jdbc.pool.OracleConnectionPoolDataSource                 </data-source-class-name>                 <data-source-type>ConnectionPoolDataSource</data-source-type>                 <vendor>oracle</vendor>                 <description>                     Oracle ConnectionPoolDataSource for instance 1                 </description>                 <server-name>192.168.1.1</server-name>                 <port-number>1521</port-number>                 <database-name>RAC1</database-name>                 <user>scott</user>                 <password>tiger</password>                 <property>                     <name>driverType</name>                     <type>java.lang.String</type>                     <value>thin</value>                 </property>                 <connection-pool>                     <pooling>                         <min>2</min>                         <max>30</max>                         <period>1800000</period>                     </pooling>                     <wait-free-connection>                         <enable-wait>true</enable-wait>                         <wait-time>10000</wait-time>                     </wait-free-connection>                     <max-use-count>50</max-use-count>                     <connection-validation>                     \t\t<check-query>select 1 from dual</check-query>                     \t\t<check-query-period>60000</check-query-period>                     </connection-validation>                 </connection-pool>             </database>             <database>                 <data-source-id>datasource2</data-source-id>                 <data-source-class-name>                     oracle.jdbc.pool.OracleConnectionPoolDataSource                 </data-source-class-name>                 <data-source-type>ConnectionPoolDataSource</data-source-type>                 <vendor>oracle</vendor>                 <description>                     Oracle ConnectionPoolDataSource for instance 2                 </description>                 <server-name>192.168.1.3</server-name>                 <port-number>1521</port-number>                 <database-name>RAC2</database-name>                 <user>scott</user>                 <password>tiger</password>                 <property>                     <name>driverType</name>                     <type>java.lang.String</type>                     <value>thin</value>                 </property>                 <connection-pool>                     <pooling>                         <min>2</min>                         <max>15</max>                         <period>1800000</period>                     </pooling>                     <wait-free-connection>                         <enable-wait>true</enable-wait>                         <wait-time>10000</wait-time>                     </wait-free-connection>                     <max-use-count>50</max-use-count>                     <connection-validation>                     \t\t<check-query>select 1 from dual</check-query>                     \t\t<check-query-period>60000</check-query-period>                     </connection-validation>                 </connection-pool>             </database>             <cluster-ds>                 <data-source-id>clusterdatasource</data-source-id>                 <is-pre-conn>false</is-pre-conn>                 <data-source>datasource1</data-source>                 <data-source>datasource2</data-source>             </cluster-ds>             <!-- DB2 Universal driver(JCC) example -->             <database>                 <data-source-id>db2xa</data-source-id>                 <data-source-class-name>                     com.ibm.db2.jcc.DB2XADataSource                 </data-source-class-name>                 <data-source-type>XADataSource</data-source-type>                 <vendor>db2</vendor>                 <server-name>192.168.1.10</server-name>                 <port-number>50000</port-number>                 <database-name>SAMPLE</database-name>                 <user>db2user</user>                 <password>db2user</password>                 <property>                     <name>DriverType</name>                     <type>java.lang.Integer</type>                     <value>4</value>                 </property>                 <connection-pool>                     <pooling>                         <min>10</min>                         <max>30</max>                         <period>1800000</period>                     </pooling>                     <wait-free-connection>                         <enable-wait>true</enable-wait>                     </wait-free-connection>                     <max-use-count>30</max-use-count>                     <!-- SHALL be true -->                     <keep-connection-handle-open>                         true                     </keep-connection-handle-open>                 </connection-pool>             </database>         </data-source>         <mail-source>             <mail-entry>                 <export-name>HOST</export-name>                 <mail-property>                     <name>mail.host</name>                     <value>mail.foo.com</value>                 </mail-property>             </mail-entry>         </mail-source>         <url-source>             <url-entry>                 <export-name>MYURL</export-name>                 <url>http://www.foo.com</url>             </url-entry>         </url-source>         <external-source>             <jms-source>                 <vendor>ibmmq</vendor>                 <factory-class-name>com.ibm.mq.jms.MQQueue</factory-class-name>                 <resource-type>Q</resource-type>                 <export-name>myMQ</export-name>                 <queue>queue</queue>                 <queueManager>qmgr</queueManager>                 <property>                     <name>ccsid</name>                     <type>java.lang.String</type>                     <value>myqid</value>                 </property>                 <property>                     <name>persistence</name>                     <type>java.lang.String</type>                     <value>APP</value>                 </property>                 <property>                     <name>targ-client</name>                     <type>java.lang.String</type>                     <value>MQ</value>                 </property>                 <property>                     <name>encoding</name>                     <type>java.lang.String</type>                     <value>euc-kr</value>                 </property>             </jms-source>         </external-source>         <jaxr-source>             <jaxr-entry>                 <export-name>JAXRConnection</export-name>                 <connection-factory-class-name>                     jeus.webservies.ConnectionFactoryImpl                 </connection-factory-class-name>                 <query-manager-URL>                     http://localhost:8088/uddi/inquiry                 </query-manager-URL>                 <lifeCycle-manager-URL>                     http://localhost:8088/uddi/publish                 </lifeCycle-manager-URL>                 <authentication-method>                     UDDI_GET_AUTHTOKEN                 </authentication-method>                 <jaxr-property>                     <name>javax.xml.registry.uddi.maxRows</name>                     <value>10</value>                 </jaxr-property>             </jaxr-entry>         </jaxr-source>    </resources>     <!-- applications to be deployed while target servers are booting -->    <deployed-applications>       <deployed-application>          <id> MyJ2eeApp</id>          <path>c:\\myapps\\MyJ2eeApp</path>          <type>EAR</type>          <targets>             <server>                <name>myServer</name>             </server>          </targets>          <options>             <classloading>ISOLATED</classloading>             <fast-deploy>false</fast-deploy>             <keep-generated>false</keep-generated>          </options>       </deployed-application>    </deployed-applications>  </domain>",
+    "payloadType": "str",
+    "x": 160,
+    "y": 120,
+    "wires": [
+      [
+        "e4165a52.a851f8",
+        "9f2b158d.ca76f8"
+      ]
+    ]
+  },
+  {
+    "id": "9f2b158d.ca76f8",
+    "type": "debug",
+    "z": "3ff5c40c.ffa48c",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 350,
+    "y": 160,
+    "wires": []
+  },
+  {
+    "id": "fbaf92ba.f194c",
+    "type": "debug",
+    "z": "3ff5c40c.ffa48c",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "false",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 730,
+    "y": 120,
+    "wires": []
+  },
+  {
+    "id": "586d8d62.c48784",
+    "type": "json",
+    "z": "3ff5c40c.ffa48c",
+    "name": "",
+    "property": "payload",
+    "action": "",
+    "pretty": false,
+    "x": 570,
+    "y": 120,
+    "wires": [
+      [
+        "fbaf92ba.f194c"
+      ]
+    ]
+  }
+]

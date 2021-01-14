@@ -1,0 +1,55 @@
+{
+  "_from": "node-red-contrib-xmljson@0.0.1",
+  "_id": "node-red-contrib-xmljson@0.0.1",
+  "_inBundle": false,
+  "_integrity": "sha1-noFcXCDwGu+rHAMcJ/78E+qC8Ow=",
+  "_location": "/node-red-contrib-xmljson",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "node-red-contrib-xmljson@0.0.1",
+    "name": "node-red-contrib-xmljson",
+    "escapedName": "node-red-contrib-xmljson",
+    "rawSpec": "0.0.1",
+    "saveSpec": null,
+    "fetchSpec": "0.0.1"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/node-red-contrib-xmljson/-/node-red-contrib-xmljson-0.0.1.tgz",
+  "_shasum": "9e815c5c20f01aefab1c031c27fefc13ea82f0ec",
+  "_spec": "node-red-contrib-xmljson@0.0.1",
+  "_where": "/home/ubuntu/.node-red",
+  "author": {
+    "name": "hkjang"
+  },
+  "bugs": {
+    "url": "https://github.com/hkjang/node-red-contrib-xmljson/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "xmljson": "0.12.0"
+  },
+  "deprecated": false,
+  "description": "Parse xml to json",
+  "homepage": "https://github.com/hkjang/node-red-contrib-xmljson#readme",
+  "keywords": [
+    "node-red",
+    "xmljson"
+  ],
+  "license": "ISC",
+  "name": "node-red-contrib-xmljson",
+  "node-red": {
+    "nodes": {
+      "xmljson": "lib/xmljson.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkjang/node-red-contrib-xmljson.git"
+  },
+  "version": "0.0.1"
+}

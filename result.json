@@ -1,0 +1,290 @@
+{
+  "domain": {
+    "xmlns": "http://www.tmaxsoft.com/xml/ns/jeus",
+    "version": "7.0",
+    "id": "1804002829",
+    "admin-server-name": "myServer",
+    "servers": {
+      "server": {
+        "name": "myServer",
+        "listeners": {
+          "base": "base",
+          "listener": [
+            {
+              "name": "base",
+              "listen-port": "9736"
+            },
+            {
+              "name": "jms-internal",
+              "listen-port": "9741"
+            }
+          ]
+        },
+        "naming-server": {
+          "export-cos-naming": "false",
+          "pooling": {
+            "shared": {
+              "reserved-thread-num": "30"
+            }
+          }
+        },
+        "jvm-config": {
+          "jvm-option": "-Xmx512m -XX:MaxPermSize=250m"
+        },
+        "enable-interop": {},
+        "sequential-start": "true",
+        "tm-config": {
+          "active-timeout": "300000",
+          "prepare-timeout": "120000",
+          "prepared-timeout": "60000",
+          "commit-timeout": "120000",
+          "recovery-timeout": "120000",
+          "uncompleted-timeout": "86400000",
+          "tx-log-dir": "${SERVER_HOME}/.workspace/txlog",
+          "automatic-recovery": "false"
+        },
+        "action-on-resource-leak": "Warning",
+        "use-MEJB": "false",
+        "lifecycle-invocation": {
+          "class-name": "com.tmax.ProcessClass",
+          "invocation": {
+            "invocation-method": {
+              "method-name": "processMethod",
+              "method-params": {
+                "method-param": "int"
+              }
+            },
+            "invocation-argument": "1",
+            "invocation-type": "BOOT"
+          }
+        },
+        "class-ftp": "true",
+        "system-logging": {
+          "name": "jeus",
+          "level": "INFO",
+          "use-parent-handlers": "false",
+          "handler": {
+            "file-handler": {
+              "name": "fileHandler",
+              "level": "FINEST",
+              "file-name": "JeusServer.log",
+              "enable-rotation": "true",
+              "rotation-dir": "${SERVER_HOME}/logs",
+              "valid-day": "1",
+              "buffer-size": "1024",
+              "append": "false"
+            }
+          }
+        },
+        "log-stdout-to-raw-format": "true",
+        "gms": {
+          "failure-detection-tries": "2",
+          "failure-detection-timeout": "7000",
+          "failure-detection-tcp-timeout": "10000",
+          "failure-verification-timeout": "15000",
+          "discovery-timeout": "5000"
+        },
+        "system-thread-pool": {
+          "min": "0",
+          "max": "100",
+          "keep-alive-time": "300000",
+          "queue-size": "4096",
+          "stuck-thread-handling": {
+            "max-stuck-thread-time": "0",
+            "action-on-stuck-thread": "None"
+          }
+        }
+      }
+    },
+    "group-communication-info": {
+      "heartbeat-address": "230.30.1.1",
+      "heartbeat-port": "3030",
+      "failure-detection-tcp-port": "9000"
+    },
+    "resources": {
+      "data-source": {
+        "database": [
+          {
+            "data-source-id": "datasource1",
+            "data-source-class-name": "oracle.jdbc.pool.OracleConnectionPoolDataSource",
+            "data-source-type": "ConnectionPoolDataSource",
+            "vendor": "oracle",
+            "description": "Oracle ConnectionPoolDataSource for instance 1",
+            "server-name": "192.168.1.1",
+            "port-number": "1521",
+            "database-name": "RAC1",
+            "user": "scott",
+            "password": "tiger",
+            "property": {
+              "name": "driverType",
+              "type": "java.lang.String",
+              "value": "thin"
+            },
+            "connection-pool": {
+              "pooling": {
+                "min": "2",
+                "max": "30",
+                "period": "1800000"
+              },
+              "wait-free-connection": {
+                "enable-wait": "true",
+                "wait-time": "10000"
+              },
+              "max-use-count": "50",
+              "connection-validation": {
+                "check-query": "select 1 from dual",
+                "check-query-period": "60000"
+              }
+            }
+          },
+          {
+            "data-source-id": "datasource2",
+            "data-source-class-name": "oracle.jdbc.pool.OracleConnectionPoolDataSource",
+            "data-source-type": "ConnectionPoolDataSource",
+            "vendor": "oracle",
+            "description": "Oracle ConnectionPoolDataSource for instance 2",
+            "server-name": "192.168.1.3",
+            "port-number": "1521",
+            "database-name": "RAC2",
+            "user": "scott",
+            "password": "tiger",
+            "property": {
+              "name": "driverType",
+              "type": "java.lang.String",
+              "value": "thin"
+            },
+            "connection-pool": {
+              "pooling": {
+                "min": "2",
+                "max": "15",
+                "period": "1800000"
+              },
+              "wait-free-connection": {
+                "enable-wait": "true",
+                "wait-time": "10000"
+              },
+              "max-use-count": "50",
+              "connection-validation": {
+                "check-query": "select 1 from dual",
+                "check-query-period": "60000"
+              }
+            }
+          },
+          {
+            "data-source-id": "db2xa",
+            "data-source-class-name": "com.ibm.db2.jcc.DB2XADataSource",
+            "data-source-type": "XADataSource",
+            "vendor": "db2",
+            "server-name": "192.168.1.10",
+            "port-number": "50000",
+            "database-name": "SAMPLE",
+            "user": "db2user",
+            "password": "db2user",
+            "property": {
+              "name": "DriverType",
+              "type": "java.lang.Integer",
+              "value": "4"
+            },
+            "connection-pool": {
+              "pooling": {
+                "min": "10",
+                "max": "30",
+                "period": "1800000"
+              },
+              "wait-free-connection": {
+                "enable-wait": "true"
+              },
+              "max-use-count": "30",
+              "keep-connection-handle-open": "true"
+            }
+          }
+        ],
+        "cluster-ds": {
+          "data-source-id": "clusterdatasource",
+          "is-pre-conn": "false",
+          "data-source": [
+            "datasource1",
+            "datasource2"
+          ]
+        }
+      },
+      "mail-source": {
+        "mail-entry": {
+          "export-name": "HOST",
+          "mail-property": {
+            "name": "mail.host",
+            "value": "mail.foo.com"
+          }
+        }
+      },
+      "url-source": {
+        "url-entry": {
+          "export-name": "MYURL",
+          "url": "http://www.foo.com"
+        }
+      },
+      "external-source": {
+        "jms-source": {
+          "vendor": "ibmmq",
+          "factory-class-name": "com.ibm.mq.jms.MQQueue",
+          "resource-type": "Q",
+          "export-name": "myMQ",
+          "queue": "queue",
+          "queueManager": "qmgr",
+          "property": [
+            {
+              "name": "ccsid",
+              "type": "java.lang.String",
+              "value": "myqid"
+            },
+            {
+              "name": "persistence",
+              "type": "java.lang.String",
+              "value": "APP"
+            },
+            {
+              "name": "targ-client",
+              "type": "java.lang.String",
+              "value": "MQ"
+            },
+            {
+              "name": "encoding",
+              "type": "java.lang.String",
+              "value": "euc-kr"
+            }
+          ]
+        }
+      },
+      "jaxr-source": {
+        "jaxr-entry": {
+          "export-name": "JAXRConnection",
+          "connection-factory-class-name": "jeus.webservies.ConnectionFactoryImpl",
+          "query-manager-URL": "http://localhost:8088/uddi/inquiry",
+          "lifeCycle-manager-URL": "http://localhost:8088/uddi/publish",
+          "authentication-method": "UDDI_GET_AUTHTOKEN",
+          "jaxr-property": {
+            "name": "javax.xml.registry.uddi.maxRows",
+            "value": "10"
+          }
+        }
+      }
+    },
+    "deployed-applications": {
+      "deployed-application": {
+        "id": "MyJ2eeApp",
+        "path": "c:\\myapps\\MyJ2eeApp",
+        "type": "EAR",
+        "targets": {
+          "server": {
+            "name": "myServer"
+          }
+        },
+        "options": {
+          "classloading": "ISOLATED",
+          "fast-deploy": "false",
+          "keep-generated": "false"
+        }
+      }
+    }
+  }
+}
